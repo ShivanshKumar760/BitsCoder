@@ -1,4 +1,4 @@
-![SQLYAPPER Logo](https://github.com/ShivanshKumar760/SqlYapper/blob/master/sqlyapper.png)
+![Blitz Logo](https://github.com/ShivanshKumar760/BlitzCoder/blob/master/client/logo/blitz.png)
 # Blitzcoder: An Online Code Editor
 
 **Blitzcoder** is an online code editor built with React, Chakra UI, and powered by the Piston API for code execution and styling. It provides a seamless environment for developers to write, execute, and style their code directly in the browser.

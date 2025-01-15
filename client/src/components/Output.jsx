@@ -217,10 +217,104 @@
 // export default Output;
 
 
+// import { useState } from "react";
+// import { Box, Button, Text, Input, useToast } from "@chakra-ui/react";
+// import { executeCode } from "../api"; // Importing the executeCode function
+
+// const Output = ({ editorRef, language }) => {
+//   const toast = useToast();
+//   const [output, setOutput] = useState(null);
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [isError, setIsError] = useState(false);
+//   const [userInput, setUserInput] = useState(""); // State to hold user input
+
+//   const runCode = async () => {
+//     const sourceCode = editorRef.current.getValue(); // Get the code from the editor
+//     if (!sourceCode) {
+//       toast({
+//         title: "No code to run",
+//         description: "Please write some code in the editor before running.",
+//         status: "warning",
+//         duration: 5000,
+//       });
+//       return;
+//     }
+
+//     try {
+//       setIsLoading(true); // Show loading spinner while code is executing
+//       const { run: result } = await executeCode(language, sourceCode, userInput); // Pass the code and user input to the API
+
+//       setOutput(result.output.split("\n")); // Display the output of the code execution
+//       setIsError(!!result.stderr); // If there's an error in stderr, set isError to true
+//     } catch (error) {
+//       console.error(error);
+//       toast({
+//         title: "An error occurred.",
+//         description: error.message || "Unable to run code",
+//         status: "error",
+//         duration: 6000,
+//       });
+//       setIsError(true); // Set error state if API request fails
+//     } finally {
+//       setIsLoading(false); // Hide loading spinner after execution
+//     }
+//   };
+
+//   return (
+//     <Box w="50%">
+//       <Text mb={2} fontSize="lg" fontWeight="bold">Output</Text>
+      
+//       {/* Button to execute code */}
+//       <Button
+//         variant="outline"
+//         colorScheme="green"
+//         mb={4}
+//         isLoading={isLoading}
+//         onClick={runCode}
+//       >
+//         Run Code
+//       </Button>
+      
+//       {/* Input field for user to provide input */}
+//       <Input
+//         value={userInput}
+//         onChange={(e) => setUserInput(e.target.value)} // Update user input state on change
+//         placeholder="Enter input for your program"
+//         mb={4}
+//       />
+      
+//       {/* Display the output from the executed code */}
+//       <Box
+//         height="75vh"
+//         p={2}
+//         color={isError ? "red.400" : "white"}
+//         border="1px solid"
+//         borderRadius={4}
+//         borderColor={isError ? "red.500" : "#333"}
+//         overflowY="auto" // Enable scrolling for output if it's too large
+//       >
+//         {/* {output
+//           ? output.map((line, i) => <Text key={i}>{line}</Text>) // Display each line of the output
+//           : 'Click "Run Code" to see the output here'} */}
+
+
+//         <pre style={{
+//           whiteSpace:"pre-wrap",
+//           wordBreak:"break-word",
+//           fontFamily:"monospace",
+//           color:isError ? "red":"white"
+//         }}>
+//           {output}
+//         </pre>
+//       </Box>
+//     </Box>
+//   );
+// };
+
 import { useState } from "react";
 import { Box, Button, Text, Input, useToast } from "@chakra-ui/react";
 import { executeCode } from "../api"; // Importing the executeCode function
-
+/*eslint-disable */
 const Output = ({ editorRef, language }) => {
   const toast = useToast();
   const [output, setOutput] = useState(null);
@@ -243,7 +337,7 @@ const Output = ({ editorRef, language }) => {
     try {
       setIsLoading(true); // Show loading spinner while code is executing
       const { run: result } = await executeCode(language, sourceCode, userInput); // Pass the code and user input to the API
-      console.error(result);
+
       setOutput(result.output); // Display the output of the code execution
       setIsError(!!result.stderr); // If there's an error in stderr, set isError to true
     } catch (error) {
@@ -293,23 +387,22 @@ const Output = ({ editorRef, language }) => {
         borderColor={isError ? "red.500" : "#333"}
         overflowY="auto" // Enable scrolling for output if it's too large
       >
-        {/* {output
-          ? output.map((line, i) => <Text key={i}>{line}</Text>) // Display each line of the output
-          : 'Click "Run Code" to see the output here'} */}
-
-
-        <pre style={{
-          whiteSpace:"pre-wrap",
-          wordBreak:"break-word",
-          fontFamily:"monospace",
-          color:isError ? "red":"white"
-        }}>
-          {output}
+        {/* Use <pre> to preserve the formatting and whitespace */}
+        <pre
+          style={{
+            whiteSpace: "pre-wrap", // Ensure it wraps long lines
+            wordBreak: "break-word", // Break long words
+            fontFamily: "monospace", // Use monospace font for code-like output
+            color: isError ? "red" : "white", // Apply color based on error state
+          }}
+        >
+          {output || 'Click "Run Code" to see the output here'}
         </pre>
       </Box>
     </Box>
   );
 };
+
 
 export default Output;
 

@@ -12,7 +12,7 @@ import {
   const languages = Object.entries(LANGUAGE_VERSIONS);//converts it into a array 
   //of 2d array with each array having key and value
   const ACTIVE_COLOR = "blue.400";
-  
+  /*eslint-disable */
   const LanguageSelector = ({ language, onSelect }) => {
     return (
       <Box ml={2} mb={4}>

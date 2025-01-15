@@ -243,8 +243,8 @@ const Output = ({ editorRef, language }) => {
     try {
       setIsLoading(true); // Show loading spinner while code is executing
       const { run: result } = await executeCode(language, sourceCode, userInput); // Pass the code and user input to the API
-
-      setOutput(result.output.split("\n")); // Display the output of the code execution
+      console.error(result);
+      setOutput(result.output); // Display the output of the code execution
       setIsError(!!result.stderr); // If there's an error in stderr, set isError to true
     } catch (error) {
       console.error(error);
@@ -293,9 +293,19 @@ const Output = ({ editorRef, language }) => {
         borderColor={isError ? "red.500" : "#333"}
         overflowY="auto" // Enable scrolling for output if it's too large
       >
-        {output
+        {/* {output
           ? output.map((line, i) => <Text key={i}>{line}</Text>) // Display each line of the output
-          : 'Click "Run Code" to see the output here'}
+          : 'Click "Run Code" to see the output here'} */}
+
+
+        <pre style={{
+          whiteSpace:"pre-wrap",
+          wordBreak:"break-word",
+          fontFamily:"monospace",
+          color:isError ? "red":"white"
+        }}>
+          {output}
+        </pre>
       </Box>
     </Box>
   );
